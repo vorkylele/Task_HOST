@@ -6,78 +6,81 @@ import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
-import java.util.HashMap;
-
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$x;
 import static ru.hostco.patientportal.uri.BaseURI.TAB_HEALTH_INDICATORS;
 
 public class HealthIndicatorsPage {
     // Elements
-    private SelenideElement tabOfHealthIndicators = $(By.xpath("//a[text()='Показатели здоровья']")),
-            elementHealthMonitoring = $(By.className("control-health-block__caption")),
-            messageOfSuccessSaveIndicator = $(By.cssSelector(".ui-toast-summary")),
-            buttonOfCloseOfMessageOfSuccessSaveIndicator = $(By.cssSelector(".ui-toast-close-icon")),
-            textOfSuccessSaveIndicator = $(By.cssSelector(".ui-toast-detail"));
-    private ElementsCollection allCloseMessageButton = $$(By.cssSelector(".ui-toast-close-icon"));
+    private SelenideElement
+            tabOfHealthIndicators = $x("//*[contains(text(),'Показатели здоровья')]"),
+            elementHealthMonitoring = $x("//*[contains(text(), 'Контроль состояния здоровья')]"),
+            messageOfSuccessSaveIndicator = $(".ui-toast-summary"),
+            buttonOfCloseOfMessageOfSuccessSaveIndicator = $(".ui-toast-close-icon"),
+            textOfSuccessSaveIndicator = $(".ui-toast-detail");
+    private ElementsCollection allCloseMessageButton = $$(".ui-toast-close-icon");
 
-    private SelenideElement dropDownLabelIndicator = $(By.cssSelector(".ng-tns-c69-9.ui-dropdown-label")),
-            indicatorTemperature = $(By.xpath("//li[@aria-label='Температура']")),
-            indicatorWeight = $(By.xpath("//li[@aria-label='Вес']")),
-            indicatorPressure = $(By.xpath("//li[@aria-label='Давление']")),
+    private SelenideElement
+            dropDownLabelIndicator = $x("//*[text()='Показатель']"),
+            indicatorTemperature = $x("//li[@aria-label='Температура']"),
+            indicatorWeight = $x("//li[@aria-label='Вес']"),
+            indicatorPressure = $x("//li[@aria-label='Давление']"),
             indicatorBloodSugarLevels = $(By.xpath("//li[@aria-label='Уровень сахара в крови']")),
-            indicatorPulse = $(By.xpath("//li[@aria-label='Пульс']")),
-            indicatorMood = $(By.xpath("//li[@aria-label='Настроение']")),
-            indicatorAlcoholInTheBlood = $(By.xpath("//li[@aria-label='Алкоголь в крови']")),
-            indicatorAmbivalence = $(By.xpath("//li[@aria-label='Амбивалентность']")),
-            indicatorGeneralStateOfHealth = $(By.xpath("//li[@aria-label='Общее состояние здоровья']")),
-            indicatorTheConditionOfTheSkin = $(By.xpath("//li[@aria-label='Состояние кожных покровов']"));
+            indicatorPulse = $x("//li[@aria-label='Пульс']"),
+            indicatorMood = $x("//li[@aria-label='Настроение']"),
+            indicatorAlcoholInTheBlood = $x("//li[@aria-label='Алкоголь в крови']"),
+            indicatorAmbivalence = $x("//li[@aria-label='Амбивалентность']"),
+            indicatorGeneralStateOfHealth = $x("//li[@aria-label='Общее состояние здоровья']"),
+            indicatorTheConditionOfTheSkin = $x("//li[@aria-label='Состояние кожных покровов']");
 
-    private SelenideElement dateAndTime = $(By.xpath("//div[@class='col date']/div[@class='sml break-word']")),
-            indicator = $(By.xpath("//div[@class='col indicator']/div[@class='sml break-word']")),
-            value = $(By.xpath("//div[@class='col val']/div[@class='sml break-word']")),
-            badValue = $(By.xpath("//div[@class='col val']//span[@style='color: red;']")),
-            deleteButton = $(By.xpath("//a[text()='Удалить ']")),
-            buttonYesInDeleteWindows = $(By.xpath("//button[text()='Да ']"));
+    private SelenideElement
+            dateAndTime = $x("//*[contains(@class, 'col date')]/*[contains(@class, 'sml break-word')]"),
+            indicator = $x("//*[contains(@class, 'col indicator')]/*[contains(@class, 'sml break-word')]"),
+            value = $x("//*[contains(@class, 'col val')]/*[contains(@class, 'sml break-word')]"),
+            badValue = $x("//*[contains(@class, 'col val')]//*[contains(@style, 'color: red;')]"),
+            deleteButton = $x("//*[contains(text(), 'Удалить')]"),
+            buttonYesInDeleteWindows = $x("//button[contains(text(), 'Да')]");
 
-    private SelenideElement editButton = $(By.xpath("//a[text()='Редактировать ']")),
-            inputFieldTemperatureInEditWindow = $(By.xpath("//input[@class='ui-inputtext ui-corner-all ui-state-default ui-widget ui-state-filled']")),
-            inputFieldCustomizingInEditWindow = $(By.xpath("//input[@class='ng-untouched ng-pristine ng-valid ng-star-inserted']")),
-            inputFieldWithNotCustomizingInEditWindow = $(By.xpath("//textarea[@class='ng-untouched ng-pristine ng-valid ng-star-inserted']")),
-            firstInputFieldOfPressure = $(By.xpath("//input[@class='ng-untouched ng-pristine ng-valid' and @formcontrolname='1']")),
-            secondInputFieldOfPressure = $(By.xpath("//input[@class='ng-untouched ng-pristine ng-valid' and @formcontrolname='2']"));
+    private SelenideElement
+            editButton = $x("//*[contains(text(),'Редактировать')]"),
+            inputFieldCustomizingInEditWindow = $x("//input[contains(@class, 'ng-untouched ng-pristine')]"),
+            inputFieldWithNotCustomizingInEditWindow = $x("//textarea[contains(@class, 'ng-untouched ng-pristine')]");
 
-    private SelenideElement buttonOfRecordAnIndicator = $(By.xpath("//a[text()='Записать показатель']")),
-            inputFieldTemperatureInRecordAnIndicator = $(By.xpath("//input[@class='ui-inputtext ui-corner-all ui-state-default ui-widget']")),
-            inputFieldWeightInRecordAnIndicator = $(By.xpath("//form/div[2]/div[2]/input")),
-            firstInputPressureInRecordAnIndicator = $(By.xpath("//input[@formcontrolname='1']")),
-            secondInputPressureInRecordAnIndicator = $(By.xpath("//input[@formcontrolname='2']")),
-            inputBloodSugarLevelsInRecordAnIndicator = $(By.xpath("//form/div[4]/div[2]/input")),
-            inputPulseInRecordAnIndicator = $(By.xpath("//form/div[5]/div[2]/input")),
-            inputMoodInRecordAnIndicator = $(By.xpath("//form/div[6]/div[2]/textarea")),
-            inputAlcoholInTheBloodInRecordAnIndicator = $(By.xpath("//form/div[7]/div[2]/input")),
-            inputAmbivalenceInRecordAnIndicator = $(By.xpath("//form/div[8]/div[2]/input")),
-            inputGeneralStateOfHealthInRecordAnIndicator = $(By.xpath("//form/div[9]/div[2]/textarea")),
-            inputTheConditionOfTheSkinInRecordAnIndicator = $(By.xpath("//form/div[10]/div[2]/textarea"));
+    private SelenideElement
+            buttonOfRecordAnIndicator = $x("//*[contains(text(), 'Записать показатель')]"),
+            titlePageTextOfRecordAnIndicator = $x("//*[contains(text(), 'Новая запись состояния здоровья')]"),
+            inputFieldTemperature = $x("//input[contains(@class, 'ui-inputtext ui-corner-all')]"),
+            inputFieldWeightInRecordAnIndicator = $x("//form/div[2]/div[2]/input"),
+            firstInputPressure = $x("//input[@formcontrolname='1']"),
+            secondInputPressure = $x("//input[@formcontrolname='2']"),
+            inputBloodSugarLevelsInRecordAnIndicator = $x("//form/div[4]/div[2]/input"),
+            inputPulseInRecordAnIndicator = $x("//form/div[5]/div[2]/input"),
+            inputMoodInRecordAnIndicator = $x("//form/div[6]/div[2]/textarea"),
+            inputAlcoholInTheBloodInRecordAnIndicator = $x("//form/div[7]/div[2]/input"),
+            inputAmbivalenceInRecordAnIndicator = $x("//form/div[8]/div[2]/input"),
+            inputGeneralStateOfHealthInRecordAnIndicator = $x("//form/div[9]/div[2]/textarea"),
+            inputTheConditionOfTheSkinInRecordAnIndicator = $x("//form/div[10]/div[2]/textarea");
 
-    private SelenideElement buttonOfSettings = $(By.xpath("//a[text()='Настроить']")),
-            inputFieldMinTemperateInSettings = $(By.xpath("//form/div[1]//input[@class='ng-untouched ng-pristine ng-valid' and @formcontrolname='min']")),
-            inputFieldMaxTemperateInSettings = $(By.xpath("//form/div[1]//input[@class='ng-untouched ng-pristine ng-valid' and @formcontrolname='max']")),
-            inputFieldMinWeightInSettings = $(By.xpath("//form/div[2]//input[@class='ng-untouched ng-pristine ng-valid' and @formcontrolname='min']")),
-            inputFieldMaxWeightInSettings = $(By.xpath("//form/div[2]//input[@class='ng-untouched ng-pristine ng-valid' and @formcontrolname='max']")),
-            firstInputFieldMinPressureInSettings = $(By.xpath("//form/div[3]//div[1]/div[1]/input")),
-            secondInputFieldMinPressureInSettings = $(By.xpath("//form/div[3]//div[1]/div[3]/input")),
-            firstInputFieldMaxPressureInSettings = $(By.xpath("//form/div[3]//div[2]/div[1]/input")),
-            secondInputFieldMaxPressureInSettings = $(By.xpath("//form/div[3]//div[2]/div[3]/input")),
-            inputFieldMinBloodSugarLevelsInSettings = $(By.xpath("//form/div[4]//input[@class='ng-untouched ng-pristine ng-valid' and @formcontrolname='min']")),
-            inputFieldMaxBloodSugarLevelsInSettings = $(By.xpath("//form/div[4]//input[@class='ng-untouched ng-pristine ng-valid' and @formcontrolname='max']")),
-            inputFieldMinPulseInSettings = $(By.xpath("//form/div[5]//input[@class='ng-untouched ng-pristine ng-valid' and @formcontrolname='min']")),
-            inputFieldMaxPulseInSettings = $(By.xpath("//form/div[5]//input[@class='ng-untouched ng-pristine ng-valid' and @formcontrolname='max']")),
-            inputFieldMinAlcoholInTheBloodInSettings = $(By.xpath("//form/div[6]//input[@class='ng-untouched ng-pristine ng-valid' and @formcontrolname='min']")),
-            inputFieldMaxAlcoholInTheBloodInSettings = $(By.xpath("//form/div[6]//input[@class='ng-untouched ng-pristine ng-valid' and @formcontrolname='max']")),
-            inputFieldMinAmbivalenceInSettings = $(By.xpath("//form/div[7]//input[@class='ng-untouched ng-pristine ng-valid' and @formcontrolname='min']")),
-            inputFieldMaxAmbivalenceInSettings = $(By.xpath("//form/div[7]//input[@class='ng-untouched ng-pristine ng-valid' and @formcontrolname='max']")),
-            buttonOfSave = $(By.xpath("//button//b[text()='Сохранить']"));
+    private SelenideElement
+            buttonOfSettings = $x("//a[text()='Настроить']"),
+            inputFieldMinTemperateInSettings = $x("//form/div[1]//input[@class='ng-untouched ng-pristine ng-valid' and @formcontrolname='min']"),
+            inputFieldMaxTemperateInSettings = $x("//form/div[1]//input[@class='ng-untouched ng-pristine ng-valid' and @formcontrolname='max']"),
+            inputFieldMinWeightInSettings = $x("//form/div[2]//input[@class='ng-untouched ng-pristine ng-valid' and @formcontrolname='min']"),
+            inputFieldMaxWeightInSettings = $x("//form/div[2]//input[@class='ng-untouched ng-pristine ng-valid' and @formcontrolname='max']"),
+            firstInputFieldMinPressureInSettings = $x("//form/div[3]//div[1]/div[1]/input"),
+            secondInputFieldMinPressureInSettings = $x("//form/div[3]//div[1]/div[3]/input"),
+            firstInputFieldMaxPressureInSettings = $x("//form/div[3]//div[2]/div[1]/input"),
+            secondInputFieldMaxPressureInSettings = $x("//form/div[3]//div[2]/div[3]/input"),
+            inputFieldMinBloodSugarLevelsInSettings = $x("//form/div[4]//input[@class='ng-untouched ng-pristine ng-valid' and @formcontrolname='min']"),
+            inputFieldMaxBloodSugarLevelsInSettings = $x("//form/div[4]//input[@class='ng-untouched ng-pristine ng-valid' and @formcontrolname='max']"),
+            inputFieldMinPulseInSettings = $x("//form/div[5]//input[@class='ng-untouched ng-pristine ng-valid' and @formcontrolname='min']"),
+            inputFieldMaxPulseInSettings = $x("//form/div[5]//input[@class='ng-untouched ng-pristine ng-valid' and @formcontrolname='max']"),
+            inputFieldMinAlcoholInTheBloodInSettings = $x("//form/div[6]//input[@class='ng-untouched ng-pristine ng-valid' and @formcontrolname='min']"),
+            inputFieldMaxAlcoholInTheBloodInSettings = $x("//form/div[6]//input[@class='ng-untouched ng-pristine ng-valid' and @formcontrolname='max']"),
+            inputFieldMinAmbivalenceInSettings = $x("//form/div[7]//input[@class='ng-untouched ng-pristine ng-valid' and @formcontrolname='min']"),
+            inputFieldMaxAmbivalenceInSettings = $x("//form/div[7]//input[@class='ng-untouched ng-pristine ng-valid' and @formcontrolname='max']"),
+            buttonOfSave = $x("//button//*[contains(text(), 'Сохранить')]");
 
     // Actions
     @Step("Открытие вкладки 'Показатели здоровья'")
@@ -193,7 +196,7 @@ public class HealthIndicatorsPage {
     public HealthIndicatorsPage setIndicatorOfTemperature(String temperature) {
         buttonOfRecordAnIndicator.click();
         sleep(1000);
-        inputFieldTemperatureInRecordAnIndicator.setValue(temperature);
+        inputFieldTemperature.setValue(temperature);
         sleep(1000);
         clickButtonOfSaveInSettings();
 
@@ -215,8 +218,8 @@ public class HealthIndicatorsPage {
     public HealthIndicatorsPage setIndicatorOfPressure(String upperPressure, String lowerPressure) {
         buttonOfRecordAnIndicator.click();
         sleep(1000);
-        firstInputPressureInRecordAnIndicator.setValue(upperPressure);
-        secondInputPressureInRecordAnIndicator.setValue(lowerPressure);
+        firstInputPressure.setValue(upperPressure);
+        secondInputPressure.setValue(lowerPressure);
         sleep(1000);
         clickButtonOfSaveInSettings();
 
@@ -376,7 +379,7 @@ public class HealthIndicatorsPage {
     public HealthIndicatorsPage editIndicatorOfTemperature(String value) {
         editButton.click();
         sleep(1000);
-        inputFieldTemperatureInEditWindow.setValue(value);
+        inputFieldTemperature.setValue(value);
         clickButtonOfSaveInSettings();
 
         return this;
@@ -386,8 +389,8 @@ public class HealthIndicatorsPage {
     public HealthIndicatorsPage editIndicatorOfPressure(String firstValu, String secondValue) {
         editButton.click();
         sleep(1000);
-        firstInputFieldOfPressure.setValue(firstValu);
-        secondInputFieldOfPressure.setValue(secondValue);
+        firstInputPressure.setValue(firstValu);
+        secondInputPressure.setValue(secondValue);
         clickButtonOfSaveInSettings();
 
         return this;
