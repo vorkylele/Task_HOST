@@ -10,7 +10,8 @@ public class SetMoodTest extends BaseTest {
     @Test(description="Проверка отображения параметра 'Настроение' после добавления")
     @Description("Тестирование одиночного сценария")
     public void parameterTemperatureIsVisibleWithFirstSuccessValue() {
-            healthIndicatorsPage.setIndicatorOfMood(VALUE_OF_MOOD)
+            healthIndicatorsPage
+                    .setIndicatorOfMood(VALUE_OF_MOOD)
                     .baseValueIsVisible(receiveOfData.getLocalDateTime(),
                             INDICATOR_OF_CLASS, VALUE_OF_MOOD);
     }

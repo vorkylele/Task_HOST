@@ -23,7 +23,8 @@ public class BaseTest {
 //      cookies = WebDriverRunner.getWebDriver().manage().getCookies();
 //      cookies.stream().peek(cookie->WebDriverRunner.getWebDriver().manage().addCookie(cookie)).count(); - добавление сразу всех куки
 
-        healthIndicatorsPage.openTabOfHealthIndicators()
+        healthIndicatorsPage
+                .openTabOfHealthIndicators()
                 .deleteAllIndicator()
                 .clickButtonOfSettings()
                 .setSettingsOfTemperature(MIN_VALUE_OF_TEMPERATURE, MAX_VALUE_OF_TEMPERATURE)

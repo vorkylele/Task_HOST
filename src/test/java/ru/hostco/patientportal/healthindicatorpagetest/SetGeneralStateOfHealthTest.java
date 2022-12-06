@@ -10,7 +10,8 @@ public class SetGeneralStateOfHealthTest extends BaseTest {
     @Test(description="Проверка отображения параметра 'Общее состояние здоровья' после добавления")
     @Description("Тестирование одиночного сценария")
     public void parameterTemperatureIsVisibleWithFirstSuccessValue() {
-            healthIndicatorsPage.setGeneralStateOfHealth(VALUE_OF_GENERAL_STATE_OF_HEALTH)
+            healthIndicatorsPage
+                    .setGeneralStateOfHealth(VALUE_OF_GENERAL_STATE_OF_HEALTH)
                     .baseValueIsVisible(receiveOfData.getLocalDateTime(),
                             INDICATOR_OF_CLASS, VALUE_OF_GENERAL_STATE_OF_HEALTH);
     }
