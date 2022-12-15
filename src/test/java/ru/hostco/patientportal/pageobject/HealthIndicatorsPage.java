@@ -23,6 +23,7 @@ import static ru.hostco.patientportal.config.EndPoints.*;
 import static ru.hostco.patientportal.specifications.Specifications.*;
 
 public class HealthIndicatorsPage {
+    private static final int SUCCESS_STATUS_CODE = 200;
     // Elements
     private SelenideElement
             tabOfHealthIndicators = $x("//*[contains(text(),'Показатели здоровья')]"),
@@ -366,7 +367,7 @@ public class HealthIndicatorsPage {
                 .when()
                 .get(GET_INDICATORS)
                 .then()
-                .statusCode(200)
+                .statusCode(SUCCESS_STATUS_CODE)
                 .extract().path("paginator.content.id");
     }
 
@@ -379,7 +380,7 @@ public class HealthIndicatorsPage {
                     .when()
                     .delete(DELETE_INDICATORS + id.get(i))
                     .then()
-                    .statusCode(200);
+                    .statusCode(SUCCESS_STATUS_CODE);
         }
         return this;
     }
@@ -400,6 +401,6 @@ public class HealthIndicatorsPage {
                 .when()
                 .post(SET_INDICATORS)
                 .then()
-                .statusCode(200);
+                .statusCode(SUCCESS_STATUS_CODE);
     }
 }
