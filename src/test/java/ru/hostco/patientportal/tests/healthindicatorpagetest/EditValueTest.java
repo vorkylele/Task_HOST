@@ -114,12 +114,12 @@ public class EditValueTest extends BaseTest{
     @Description("Проверка редактирования показателя")
     public void editParameterAmbivalence() {
         healthIndicatorsPage
-                .setIndicatorOfAmbivalence(FIRST_VALUE_OF_AMBIALENCE_SUCCESS)
+                .setIndicatorOfAmbivalence(FIRST_VALUE_OF_AMBIVALENCE_SUCCESS)
                 .goodValueIsVisible(receiveOfData.getLocalDateTime(),
-                        TestDataAmbivalence.INDICATOR_OF_CLASS, FIRST_VALUE_OF_AMBIALENCE_SUCCESS, TestDataAmbivalence.UNIT_OF_CLASS)
-                .editIndicatorOfCustomizing(SECOND_VALUE_OF_AMBIALENCE_SUCCESS)
+                        TestDataAmbivalence.INDICATOR_OF_CLASS, FIRST_VALUE_OF_AMBIVALENCE_SUCCESS, TestDataAmbivalence.UNIT_OF_CLASS)
+                .editIndicatorOfCustomizing(SECOND_VALUE_OF_AMBIVALENCE_SUCCESS)
                 .goodValueIsVisible(receiveOfData.getLocalDateTime(),
-                        TestDataAmbivalence.INDICATOR_OF_CLASS, SECOND_VALUE_OF_AMBIALENCE_SUCCESS, TestDataAmbivalence.UNIT_OF_CLASS);
+                        TestDataAmbivalence.INDICATOR_OF_CLASS, SECOND_VALUE_OF_AMBIVALENCE_SUCCESS, TestDataAmbivalence.UNIT_OF_CLASS);
     }
 
     @Feature("Редактирование показателя 'Общее состояние здоровья'")
