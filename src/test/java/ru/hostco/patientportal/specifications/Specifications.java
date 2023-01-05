@@ -10,11 +10,9 @@ import static ru.hostco.patientportal.config.ConfigSingle.config;
 
 public class Specifications {
 
-    private static final AllureRestAssured FILTER = new AllureRestAssured() {
-        public AllureRestAssured setRequestTemplate() {
-            return setRequestTemplate("custom-http-request.ftl");
-        }
-    };
+    private static final AllureRestAssured FILTER = new AllureRestAssured()
+            .setRequestTemplate("request.ftl")
+            .setResponseTemplate("response.ftl");
 
     public static RequestSpecification requestSpecification() {
         return new RequestSpecBuilder()
